@@ -1,0 +1,32 @@
+extends ../layout
+
+block content
+  .container
+    h1.page-header 설문지 수정
+    form(action='/survey/#{survey._id}?_method=PUT', method='POST')
+      .form
+        .main  
+          .form-group
+            label(for='title') 설문제목
+            input.form-control(type='text', id='title', name='title', placeholder='설문제목',
+             value=survey.name, required, autofocus)
+          .form-group
+            label(for='content') 설문지 설명
+            input.form-control(type='text', id='content', name='content', placeholder='설문지 설명',
+             value=survey.email, autofocus)
+          .sub
+           .form-group
+             p
+             select.form-control(name='category')
+               option(value='단일입력', selected) 단일입력
+               option(value='객관식') 객관식
+               option(value='의견') 의견  
+            .form-group
+              label(for='question') 질문
+              input.form-control(type='text', id='question', name='question', placeholder='질문 입력',
+              required, autofocus)
+        
+      div.form-actions
+        a.btn.btn-default(href='javascript:window.history.back();') 뒤로 
+        | 
+        button.btn.btn-primary(type='submit') 수정

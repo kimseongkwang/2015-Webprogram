@@ -1,0 +1,10 @@
+extends ../layout
+
+block content
+  .container
+    h1.page-header= survey.title
+    if survey.content
+    p.well(style='white-space:pre;')=survey.content
+    p.well(style='white-space:pre;')=survey.question
+    
+    a.btn.btn-default(href='/survey/index') 목록

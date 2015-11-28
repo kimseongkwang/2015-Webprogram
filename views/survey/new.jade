@@ -6,18 +6,16 @@ block content
     p
     .row
       .col-sm-8
-        form(action='/survey/preview', method='POST')
+        form(action='/survey/index', method='POST')
           .form
             .main
-              label(for='title') 설문제목 :
+              label(for='title') 설문제목
               input(type='text', id='title', name='title', class='form-control', 
-              placeholder='설문제목을 입력하세요', required, autofocus
-              )
+              placeholder='설문제목', required, autofocus)
               p
-              label(for='content') 설문지 설명 :
+              label(for='content') 설문지 설명
               input(type='text', id='content', name='content', class='form-control',
-              placeholder='설문지 설명', autofocus
-              )
+              placeholder='설문지 설명', autofocus)
             .sub
               .form-group
                 p

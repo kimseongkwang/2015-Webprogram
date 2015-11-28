@@ -1,0 +1,34 @@
+extends ../layout
+
+block content
+  .container
+    h3.page-header 설문지 목록
+
+    table.table.table-striped.table-bordered
+      thead
+        tr
+          th 설문제목
+          th 작성일시
+          th
+      tbody
+        each survey in surveys
+          tr
+            td
+              a(href='/survey/#{survey._id}')= survey.title
+            td= moment(survey.createdAt).format('YYYY-MM-DD HH:mm:ss')
+            td
+              a.btn.btn-xs.btn-default(href='/survey/#{survey._id}/edit') 수정
+              | 
+              a.btn.btn-xs.btn-default(data-id=survey.id, class='delete') 삭제
+    a.btn.btn-primary(href='/survey/new')설문조사 만들기
+    
+    form#deleteForm(style='display:none', method="POST")
+            
+    script(type='text/javascript').
+      $(".delete").click(function(e) {
+        var id = $(e.currentTarget).data('id');
+        if (confirm('정말 삭제하시겠습니까?')) {
+          $("#deleteForm").attr('action', "/survey/" + id + "?_method=DELETE").submit();          
+        }
+        return false;
+      });
