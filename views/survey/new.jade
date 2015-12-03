@@ -1,11 +1,11 @@
 extends ../layout
 
 block content
-  .container
+  #main.container
     h3.page-header 설문조사 만들기
     p
     .row
-      .col-sm-8
+      .col-xs-12
         form(action='/survey/index', method='POST')
           .form
             .main
@@ -14,29 +14,69 @@ block content
               placeholder='설문제목', required, autofocus)
               p
               label(for='content') 설문지 설명
-              input(type='text', id='content', name='content', class='form-control',
+              textarea(type='text', id='content', name='content', rows='2', class='form-control',
               placeholder='설문지 설명', autofocus)
-            .sub
-              .form-group
-                p
-                select.form-control(name='category')
-                  option(value='단일입력', selected) 단일입력
-                  option(value='객관식') 객관식
-                  option(value='의견') 의견
-                p
-                label(for='question') 질문
-                input(type='text', id='question', name='question', class='form-control',
-                placeholder='질문 입력', required, autofocus
-                )
-              
-            .actions
-              button#post-survey.btn.btn-primary.btn-mini(type='button') 문항저장
+              p
+            .sub(id='questions')
+              p
+            .row
+              .col-xs-1
+                button#post-question.btn.btn-primary(type='button') + 
             p
-           .row
-              .col-sm-4
-                button.btn.btn-primary.btn-block 문항 추가
-              .col-sm-4
-                button.btn.btn-primary.btn-block(type='submit') 미리 보기
-              .col-sm-4
-                button.btn.btn-primary.btn-block 설문지 완성
+            .row
+              .col-xs-1
+                button.btn.btn-default.btn-mini(type='submit') 완료
+        
+        script#questionTemplate(type='text/template')    
+          form.content(action='/new', method='POST')
+            .row
+              .col-xs-1
+                label Q
+              .col-xs-11
+                input(type='text', id='question', name='quetion', class='form-control',
+              placeholder='질문입력', autofocus)
+            p  
+            .row
+              .col-xs-1
+                label 질문유형
+              .col-xs-11  
+                .form-group
+                  select.form-control(name='category', id='category')
+                    option(value='객관식' selected) 객관식
+                    option(value='단일입력') 단일입력
+                    option(value='의견') 의견
+            p
+            //삭제 버튼
+            .sub1(class='Qtype')       
+        script#sltformTemplate(type='text/template')
+          form.content
+            .row
+              .col-xs-1
+                label 보기
+              .col-xs-11 
+              .form-group         
+                input(type='radio', disabled)
+                input(type = 'text', id='Qoption', name = 'Qoption',
+                placeholder = '보기 입력', autofocus)
+            p
+        script#SingleOpinionTemplate(type='text/template')
+          form.content
+            .row
+              .col-xs-1
+              .col-xs-11
+                input(type = 'text', id='SingleOpinion', name = 'SingleOpinion',
+                 class='form-control', autofocus, disabled)
+            p
+        script#OpinionTemplate(type='text/template')
+          form.content
+            .row
+              .col-xs-1
+              .col-xs-11
+                textarea(type = 'text', id='Opinion', name = 'Opinion', rows='5'
+                 class='form-control', autofocus, disabled)
+            p                          
+       
+          
+        script(type='text/javascript', src='/javascripts/question.js')         
+             
                    

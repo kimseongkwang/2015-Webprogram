@@ -13,7 +13,7 @@ function needAuth(req, res, next) {
 }
 //설문조사 페이지 이동
 router.get('/new', needAuth, function(req, res, next) {
-    res.render('survey/new', {survey: {}});
+    res.render('survey/new');
 });
 
 //설문지 목록으로 이동
@@ -32,8 +32,7 @@ router.post('/index', function(req, res, next){
 
   var survey = new Survey({
     title: req.body.title,
-    content: req.body.content,
-    question : req.body.question
+    content: req.body.content
   });
 
   survey.save(function(err){
@@ -73,8 +72,7 @@ router.put('/:id', function(req, res, next) {
       return next(err);
     }
     survey.title = req.body.title;
-    survey.content = req.body.content,
-    survey.question = req.body.question
+    survey.content = req.body.content;
 
     survey.save(function(err) {
       if (err) {
