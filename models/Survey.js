@@ -5,22 +5,26 @@ var mongoose = require('mongoose'),
 
   var schema = new Schema({
     title : {type: String},
-    content : {type: String}
-    // category : {type: String, trim: true},
-    // question : {type: String},
-    // done : {type: Boolean, defualt: false},
-    // createdAt : {type: Date, default: Date.now}
+    content : {type: String},
+    question : {type: String},
+    SingleOpinion : {type: String},
+    Opinion : {type: String},
+    Qoption : {type: String},
+    createdAt : {type: Date, default: Date.now},
   }, {
     toJSON: {
-      virtuals: true
-      // transform: function(survey){
-      //   return{
-      //     title: survey.title,
-      //     content: survey.content,
-      //     category: survey.category,
-      //     done: survey.done
-      // };
-      // }
+      virtuals: true,
+      transform: function(survey){
+        return{
+          id: survey._id.toString(),
+          title: survey.title,
+          content: survey.content,
+          question : survey.question,
+          SingleOpinion : survey.SingleOpinion,
+          Opinion : survey.Opinion,
+          Qoption : survey.Qoption
+        };
+      }
     },
     toObject: {virtuals: true}
   });

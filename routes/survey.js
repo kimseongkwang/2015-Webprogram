@@ -12,7 +12,7 @@ function needAuth(req, res, next) {
     }
 }
 //설문조사 페이지 이동
-router.get('/new', needAuth, function(req, res, next) {
+router.get('/new', function(req, res, next) {
     res.render('survey/new');
 });
 
