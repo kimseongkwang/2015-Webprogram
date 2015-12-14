@@ -11,18 +11,20 @@ function needAuth(req, res, next) {
       res.redirect('/signin');
     }
 }
-//설문조사 페이지 이동
-router.get('/new', function(req, res, next) {
+//설문조사 페이지 이동 , needAuth
+router.get('/new', needAuth, function(req, res, next) {
     res.render('survey/new');
 });
 
-//설문지 목록으로 이동
+
+//설문지 목록으로 이동 , needAuth
 router.get('/index', needAuth, function(req, res, next){
     Survey.find({}, function(err, surveys) {
       if (err) {
         return next(err);
       }
-    res.render('survey/index', {surveys: surveys});
+      //res.json(surveys);
+      res.render('survey/index', {surveys: surveys});
    });
 });
 
@@ -31,15 +33,21 @@ router.get('/index', needAuth, function(req, res, next){
 router.post('/index', function(req, res, next){
 
   var survey = new Survey({
-    title: req.body.title,
-    content: req.body.content
-  });
+     title: req.body.title,
+     content: req.body.content,
+     question : req.body.question,
+     category : req.body.category || "N/A",
+     Qoption : req.body.Qoption,
+    //  questions :[ {question : req.body.question},
+    //    {category : req.body.category || "N/A"},],
+   });
 
-  survey.save(function(err){
-    if(err) {
-      next(err);
-    }
+   survey.save(function(err, doc){
+     if(err) {
+       next(err);
+     }
     else {
+      //res.status(201).json(doc);
       res.redirect('/survey/index'); //수행하고 넘어갈 페이지, get으로 이미 경로 있어야함
     }
   });
@@ -54,6 +62,15 @@ router.get('/:id', function(req, res, next){
     res.render('survey/show', {survey: survey});
   });
 });
+
+// router.get('/:id/result', function(req, res, next){
+//   Survey.findById(req.params.id, function(err, survey){
+//     if(err){
+//       next(err);
+//     }
+//     res.render('survey/result', {survey: survey});
+//   });
+// });
 
 //설문조사 수정
 router.get('/:id/edit', function(req, res, next) {

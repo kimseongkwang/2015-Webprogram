@@ -7,9 +7,11 @@ var mongoose = require('mongoose'),
     title : {type: String},
     content : {type: String},
     question : {type: String},
+    category: {type: String, trim: true},
     SingleOpinion : {type: String},
     Opinion : {type: String},
     Qoption : {type: String},
+    questions : [ {content : {type: String}},{category: {type: String, trim: true}}],
     createdAt : {type: Date, default: Date.now},
   }, {
     toJSON: {
@@ -21,6 +23,7 @@ var mongoose = require('mongoose'),
           content: survey.content,
           question : survey.question,
           SingleOpinion : survey.SingleOpinion,
+          questions : [{question:{type: String}, category: {type: String, trim: true}}],
           Opinion : survey.Opinion,
           Qoption : survey.Qoption
         };

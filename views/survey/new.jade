@@ -6,29 +6,31 @@ block content
     p
     .row
       .col-xs-12
-        form(action='/survey/index', method='POST')
-          .form
-            .main
-              label(for='title') 설문제목
-              input(type='text', id='title', name='title', class='form-control', 
-              placeholder='설문제목', required, autofocus)
-              p
-              label(for='content') 설문지 설명
-              textarea(type='text', id='content', name='content', rows='2', class='form-control',
-              placeholder='설문지 설명', autofocus)
-              p
-            .sub(id='questions')
-              p
-            .row
-              .col-xs-1
-                button#add-question.btn.btn-primary(type='button') + 
+        form 
+          .main
+            label(for='title') 설문제목
+            input(type='text', id='title', name='title', class='form-control', 
+            placeholder='설문제목', required, autofocus)
             p
-            .row
-              .col-xs-1
-                button#complete.btn.btn-default.btn-mini(type='submit') 완료
+            label(for='content') 설문지 설명
+            textarea(type='text', id='content', name='content', rows='2', class='form-control',
+            placeholder='설문지 설명', autofocus)
+            p
+          .sub(id='questions')
+            p
+          .row
+            .col-xs-1
+              button#add-question.btn.btn-primary(type='button') + 
+          p
+          .row
+            .col-xs-1
+              a.btn.btn-primary(href='/survey/index') 설문지 목록
+            .col-xs-1
+              button#complete.btn.btn-default.btn-mini(type='submit') 완료
+              
         
         script#questionTemplate(type='text/template')    
-          form.content(action='/survey/index', method='POST')
+          form.content(action='/survey/index', method='POST', id='Delquestion')
             .row
               .col-xs-1
                 label(id="Qnum") Q
@@ -46,6 +48,9 @@ block content
                     option(value='단일입력') 단일입력
                     option(value='의견') 의견
             p(id='Qtype')
+            button#delete-question.btn-primary(type='button') x
+            p 
+            br
                        
         script#sltformTemplate(type='text/template')
           form.content
